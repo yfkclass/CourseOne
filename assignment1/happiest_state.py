@@ -39,21 +39,40 @@ def getSentimentPerTweet(sentimentdic, tweet):
 
     return totalScore
 
+def getGeoLocation(tweet):
+    if tweet.has_key(u'delete'):
+        return
+
+    if tweet.has_key(u'place'):
+        place = tweet[u'place'] 
+        if place != None:
+            if place.has_key(u'country_code'):
+                country = place[u'country_code']
+                if country == "US":
+                    print country
+                else:
+                    print 'not US'
+            else:
+                print 'has no country code'
+
+
+    else:
+        print 'has no place'
+       
 def loopThoughTweets(sentimentdic, tweetJson):    
     for tweet in tweetJson:
-        if tweet.has_key(u'text'):
-            text = tweet[u'text']
-            totalScore = getSentimentPerTweet(sentimentdic, text.encode('utf-8'))
-            print totalScore   
+        getGeoLocation(tweet)
+
+        #if tweet.has_key(u'text'):
+        #    text = tweet[u'text']
+        #    totalScore = getSentimentPerTweet(sentimentdic, text.encode('utf-8'))
+        #    print totalScore   
     
     
 def main():
     sent_file = sys.argv[1]
     tweet_file = sys.argv[2]
 
-    #sent_file = "AFINN-111.txt"
-    #tweet_file = "output.txt"
-    
     sentimentDicrionary = sentimentDictionary(sent_file)
     tweetJson = loadTweetJson(tweet_file)
 
