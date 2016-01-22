@@ -1,9 +1,6 @@
-import sys
+﻿import sys
 import json
 import string
-
-def lines(fp):
-    print str(len(fp.readlines()))
 
 def sentimentDictionary(fp):
     afinnfile = open(fp)
@@ -27,17 +24,22 @@ def getSentimentPerTerm(sentimentdic, term):
 
     return 0
 
-def getSentimentPerTweet(sentimentdic, tweet):
+def tweetTokenizer(tweet):
     table = string.maketrans("","")
     tweet = tweet.translate(table, string.punctuation)
     terms = tweet.split()
+    return terms
+
+def getSentimentPerTweet(sentimentdic, tweet):
+    #table = string.maketrans("","")
+    #tweet = tweet.translate(table, string.punctuation)
+    terms = tweetTokenizer(tweet)
     totalScore = 0
     for term in terms:
         score = getSentimentPerTerm(sentimentdic, term)
         totalScore += score
 
     return totalScore
-
 
 def loopThoughTweets(sentimentdic, tweetJson):    
     for tweet in tweetJson:
@@ -50,6 +52,9 @@ def loopThoughTweets(sentimentdic, tweetJson):
 def main():
     sent_file = sys.argv[1]
     tweet_file = sys.argv[2]
+
+    #sent_file = "AFINN-111.txt"
+    #tweet_file = "output.txt"
     
     sentimentDicrionary = sentimentDictionary(sent_file)
     tweetJson = loadTweetJson(tweet_file)
