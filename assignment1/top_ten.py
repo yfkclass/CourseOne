@@ -44,7 +44,7 @@ def loopThoughTweets(tweetJson):
    
     index = 0
     while(index < 10) :
-        print "{0} {1} ".format(sortedResults[index], sortedResults[index])
+        print "{0} {1} ".format(sortedResults[index][0], sortedResults[index][1])
         index += 1
         
     
