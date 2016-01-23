@@ -1,4 +1,4 @@
-import sys
+﻿import sys
 import json
 import string
 
@@ -41,11 +41,10 @@ def getSentimentPerTweet(sentimentdic, terms):
 def findTermsNotInAFINN(sentimentdic, sentiment, terms, newTermDic):
     for term in terms:
         if sentimentdic.has_key(term) != True:
-            if newTermDic.has_key(term) != True:
-                if newTermDic.has_key(term):
-                    newTermDic[term].append(sentiment)                    
-                else:
-                    newTermDic[term] = [sentiment]
+            if newTermDic.has_key(term):
+                newTermDic[term].append(sentiment)                    
+            else:
+                newTermDic[term] = [sentiment]
 
 def calculateSentimentForNewTerm(newTermDic, newTermSentiments):
     for newTerm in newTermDic:
@@ -61,7 +60,7 @@ def calculateSentimentForNewTerm(newTermDic, newTermSentiments):
 
 
 
-def loopThoughTweets(sentimentdic, tweetJson):
+def loopThroughTweets(sentimentdic, tweetJson):
     newTermDic = {}
     for tweet in tweetJson:
         if tweet.has_key(u'text') and tweet[u'text'] != None:
@@ -70,14 +69,11 @@ def loopThoughTweets(sentimentdic, tweetJson):
             totalScore = getSentimentPerTweet(sentimentdic, terms)
             findTermsNotInAFINN(sentimentdic, totalScore, terms, newTermDic)
 
-    for newTerm in newTermDic:
-        print "{0} {1}".format(newTerm, len(newTermDic[newTerm])    )
-
     newTermSentiments = {}
     calculateSentimentForNewTerm(newTermDic, newTermSentiments)
     
-    #for newTerm in newTermSentiments:
-    #    print "{0} {1}".format(newTerm, newTermSentiments[newTerm])
+    for newTerm in newTermSentiments:
+        print "{0} {1}".format(newTerm, newTermSentiments[newTerm])
             
 
 def main():
@@ -85,9 +81,20 @@ def main():
     tweet_file = sys.argv[2]
 
     sentimentDicrionary = sentimentDictionary(sent_file)
+
+    #totalScore = 1
+    #terms = ["I", "think", "awesome", "truck", "baseabll"]
+    #newTermDic = {}
+    #findTermsNotInAFINN(sentimentDicrionary, totalScore, terms, newTermDic)
+    #totalScore = 3
+    #terms = ["I", "think", "good", "truck", "basketball"]
+    #findTermsNotInAFINN(sentimentDicrionary, totalScore, terms, newTermDic)
+
+
+    
     tweetJson = loadTweetJson(tweet_file)
 
-    loopThoughTweets(sentimentDicrionary, tweetJson)
+    loopThroughTweets(sentimentDicrionary, tweetJson)
 
 if __name__ == '__main__':
     main()
