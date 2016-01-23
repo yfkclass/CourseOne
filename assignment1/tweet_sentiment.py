@@ -39,11 +39,14 @@ def getSentimentPerTweet(sentimentdic, tweet):
 
     return totalScore
 
-def loopThoughTweets(sentimentdic, tweetJson):    
+def loopThoughTweets(sentimentdic, tweetJson):
+    count = 0
     for tweet in tweetJson:
+        count = count + 1
         if tweet.has_key(u'text'):
             text = tweet[u'text']
             totalScore = getSentimentPerTweet(sentimentdic, text.encode('utf-8'))
+            #print count
             print totalScore   
     
     
@@ -51,9 +54,6 @@ def main():
     sent_file = sys.argv[1]
     tweet_file = sys.argv[2]
 
-    #sent_file = "AFINN-111.txt"
-    #tweet_file = "output.txt"
-    
     sentimentDicrionary = sentimentDictionary(sent_file)
     tweetJson = loadTweetJson(tweet_file)
 
