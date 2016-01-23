@@ -223,7 +223,7 @@ def loopThoughTweets(sentimentdic, tweetJson):
     maxSentiment = 0
     happiestState = 'undefined'
     for state in stateSentimentSum:
-        print "{0} {1} ".format(state, stateSentimentSum[state])
+        # print "{0} {1} ".format(state, stateSentimentSum[state])
         if stateSentimentSum[state] > maxSentiment:
             maxSentiment = stateSentimentSum[state]
             happiestState = state

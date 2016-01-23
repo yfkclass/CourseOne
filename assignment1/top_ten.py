@@ -1,6 +1,8 @@
 ﻿import sys
 import json
 import string
+import operator
+
     
 def loadTweetJson(fp):
     tweetRawData = open(fp)
@@ -31,9 +33,19 @@ def loopThoughTweets(tweetJson):
                 hashtagHistogram[hashtag] += 1
             else:
                 hashtagHistogram[hashtag] = 1
-           
-    for hashtag in hashtagHistogram:
-        print "{0} {1} ".format(hashtag, hashtagHistogram[hashtag])
+    
+    # for hashtag in hashtagHistogram:
+    #     if(hashtagHistogram[hashtag] > 10):
+    #         print "{0} {1} ".format(hashtag, hashtagHistogram[hashtag])
+    #     
+    sortedResults = sorted(hashtagHistogram.items(), key=operator.itemgetter(1), reverse = True)
+    
+    # print "--------------------------------"
+   
+    index = 0
+    while(index < 10) :
+        print "{0} {1} ".format(sortedResults[index], sortedResults[index])
+        index += 1
         
     
 def main():

@@ -46,12 +46,8 @@ def loopThroughTweets(tweetJson):
     return termDictionary
 
 def main():
-    sent_file = sys.argv[1]
-    tweet_file = sys.argv[2]
+    tweet_file = sys.argv[1]
     
-    #sent_file = "AFINN-111.txt"
-    #tweet_file = "output.txt"
-
     tweetJson = loadTweetJson(tweet_file)
     termDictionary = loopThroughTweets(tweetJson)
 
